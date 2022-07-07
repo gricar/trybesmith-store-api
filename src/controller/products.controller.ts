@@ -14,7 +14,7 @@ class ProductController {
   public create = async (req: Request, res: Response) => {
     const newProduct = await this.productService.create(req.body);
 
-    return res.status(StatusCodes.OK).json(newProduct);
+    return res.status(StatusCodes.CREATED).json(newProduct);
   };
 }
 
