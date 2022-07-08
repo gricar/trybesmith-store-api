@@ -1,4 +1,5 @@
 import { Pool } from 'mysql2/promise';
+import IOrder from '../interfaces/order.interface';
 
 export default class OrderModel {
   public connection: Pool;
@@ -7,11 +8,11 @@ export default class OrderModel {
     this.connection = connection;
   }
 
-  public getAll = async () => {
+  public getAll = async (): Promise<IOrder[]> => {
     const query = 'SELECT * FROM Trybesmith.Orders;';
 
     const [allOrders] = await this.connection.execute(query);
 
-    return allOrders;
+    return allOrders as IOrder[];
   };
 }

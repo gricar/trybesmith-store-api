@@ -10,6 +10,9 @@ class OrderService {
 
   public getAll = async () => {
     const allProducts = await this.model.getAll();
+
+    allProducts.forEach((order: object) => console.log(order));
+
     return allProducts;
   };
 }
