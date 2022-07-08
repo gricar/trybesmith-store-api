@@ -1,3 +1,4 @@
 import products from './products';
+import users from './users';
 
-export default products;
+export { products, users };
