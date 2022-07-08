@@ -1,12 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
-
-type ErrorHandler = {
-  isJoi: boolean,
-  statusCode: number,
-  message: string,
-  details: { message: string, type: string }[],
-};
+import ErrorHandler from '../interfaces/ErrorHandler.interface';
 
 const errorHandler = (err: ErrorHandler, _req: Request, res: Response, _next: NextFunction) => {
   const { isJoi, statusCode, message } = err;
