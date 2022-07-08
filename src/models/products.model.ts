@@ -16,6 +16,16 @@ export default class ProductModel {
     return result as IProduct[];
   }
 
+  public async getByName(name: string): Promise<IProduct> {
+    const query = 'SELECT * FROM Trybesmith.Products WHERE name = ?;';
+
+    const [result] = await this.connection.execute(query, [name]);
+
+    const [product] = result as IProduct[];
+
+    return product;
+  }
+
   public async create(product: INewProduct): Promise<IProduct> {
     const { name, amount } = product;
 

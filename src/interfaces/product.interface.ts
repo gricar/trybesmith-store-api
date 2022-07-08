@@ -5,5 +5,6 @@ export interface INewProduct {
 }
 
 export interface IProduct extends INewProduct {
-  id: number
+  id: number,
+  statusCode?: string,
 }
