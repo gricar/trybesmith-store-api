@@ -1,16 +1,16 @@
-import { NextFunction, Request, Response } from 'express';
+import { Request, Response } from 'express';
 import { StatusCodes } from 'http-status-codes';
 import UserService from '../service/user.service';
 
 class UserController {
   constructor(private userService = new UserService()) {}
 
-  public create = async (req: Request, res: Response, next: NextFunction) => {
-    const newUser = await this.userService.create(req.body);
+  public create = async (req: Request, res: Response): Promise<Response> => {
+    const token = await this.userService.create(req.body);
 
-    if (newUser.statusCode) return next(newUser);
+    // if (token.statusCode) return next(token);
 
-    return res.status(StatusCodes.CREATED).json(newUser);
+    return res.status(StatusCodes.CREATED).json({ token });
   };
 }
 
