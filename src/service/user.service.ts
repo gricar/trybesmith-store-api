@@ -1,13 +1,7 @@
-import { StatusCodes } from 'http-status-codes';
 import connection from '../models/connection';
 import UserModel from '../models/user.model';
 import IUser, { IBaseUser } from '../interfaces/user.interface';
-import { Error } from '../interfaces/ErrorHandler.interface';
 import generateToken from '../utils/jwt';
-
-const userAlreadyExists: Error = {
-  statusCode: StatusCodes.CONFLICT, message: 'User already exists',
-};
 
 class UserService {
   public model: UserModel;
@@ -18,7 +12,7 @@ class UserService {
 
   public getUser = (user: IBaseUser) => this.model.getUser(user);
 
-  public create = async (user: IUser): Promise<string | Error> => {
+  public create = async (user: IUser): Promise<string | null> => {
     const existUser = await this.getUser(user);
 
     if (!existUser) {
@@ -27,7 +21,7 @@ class UserService {
       return generateToken(user);
     }
 
-    return userAlreadyExists;
+    return null;
   };
 
   public authenticate = async (user: IBaseUser): Promise<string | null> => {

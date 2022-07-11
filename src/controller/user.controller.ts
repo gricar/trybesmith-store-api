@@ -8,7 +8,9 @@ class UserController {
   public create = async (req: Request, res: Response): Promise<Response> => {
     const token = await this.userService.create(req.body);
 
-    // if (token.statusCode) return next(token);
+    if (!token) {
+      return res.status(StatusCodes.CONFLICT).json({ message: 'User already exists' });
+    }
 
     return res.status(StatusCodes.CREATED).json({ token });
   };
