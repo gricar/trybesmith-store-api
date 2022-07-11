@@ -1,5 +1,5 @@
 import { sign, SignOptions } from 'jsonwebtoken';
-import IUser from '../interfaces/user.interface';
+import IUser, { IBaseUser } from '../interfaces/user.interface';
 
 const JWT_SECRET = process.env.JWT_SECRET || 'assimFunciona';
 // const { JWT_SECRET } = process.env;
@@ -9,6 +9,8 @@ const jwtConfig: SignOptions = {
   algorithm: 'HS256',
 };
 
-const generateToken = (user: Omit<IUser, 'password'>) => sign({ user }, JWT_SECRET, jwtConfig);
+function generateToken(user: Omit<IUser | IBaseUser, 'password'>) { 
+  return sign({ user }, JWT_SECRET, jwtConfig);
+}
 
 export default generateToken;
